@@ -1,1 +1,3 @@
 # API for kinozal.tv
+
+To be filled soon...

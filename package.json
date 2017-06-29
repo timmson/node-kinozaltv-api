@@ -2,7 +2,7 @@
   "name": "node-kinozaltv-api",
   "version": "0.0.1",
   "description": "API for kinozal.tv",
-  "main": "index.js",
+  "main": "api.js",
   "scripts": {
     "test": "test.js"
   },
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/timmson/node-kinozaltv-api/issues"
   },
-  "homepage": "https://github.com/timmson/node-kinozaltv-api#readme"
+  "homepage": "https://github.com/timmson/node-kinozaltv-api#readme",
+  "dependencies": {
+    "iconv": "^2.3.0",
+    "tor-request": "^1.0.6"
+  }
 }
