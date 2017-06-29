@@ -1,0 +1,24 @@
+{
+  "name": "node-kinozaltv-api",
+  "version": "0.0.1",
+  "description": "API for kinozal.tv",
+  "main": "index.js",
+  "scripts": {
+    "test": "test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/timmson/node-kinozaltv-api.git"
+  },
+  "keywords": [
+    "api",
+    "torrent",
+    "kinozal.tv"
+  ],
+  "author": "timmson",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/timmson/node-kinozaltv-api/issues"
+  },
+  "homepage": "https://github.com/timmson/node-kinozaltv-api#readme"
+}
