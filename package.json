@@ -22,7 +22,10 @@
   },
   "homepage": "https://github.com/timmson/node-kinozaltv-api#readme",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.1",
     "iconv": "^2.3.0",
+    "install": "^0.10.1",
+    "request": "^2.81.0",
     "tor-request": "^1.0.6"
   }
 }
