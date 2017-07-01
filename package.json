@@ -1,6 +1,6 @@
 {
   "name": "node-kinozaltv-api",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "API for kinozal.tv",
   "main": "api.js",
   "scripts": {
@@ -25,7 +25,6 @@
     "cheerio": "^1.0.0-rc.1",
     "iconv": "^2.3.0",
     "install": "^0.10.1",
-    "request": "^2.81.0",
-    "tor-request": "^1.0.6"
+    "request": "^2.81.0"
   }
 }
