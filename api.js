@@ -36,7 +36,7 @@ KinozalTvApi.prototype.authenticate = function () {
                 body: 'username=' + this.username + '&password=' + this.password + '&returnto=',
                 followAllRedirects: true,
                 jar: this.cookie
-            }, (err, response, body) => response.statusCode !== 200 ? reject('error: ' + response.statusCode) : resolve(null)
+            }, (err, response, body) => err || response.statusCode !== 200 ? reject(err || 'error: ' + (response || response.statusCode)) : resolve(null)
         )
     });
 };
