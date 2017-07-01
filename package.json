@@ -1,6 +1,6 @@
 {
   "name": "node-kinozaltv-api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "API for kinozal.tv",
   "main": "api.js",
   "scripts": {
