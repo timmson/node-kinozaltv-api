@@ -80,10 +80,9 @@ KinozalTvApi.prototype.search = function (parameters) {
 
  };*/
 
-KinozalTvApi.prototype.downloadTorrent = function (id) {
+KinozalTvApi.prototype.downloadTorrent = function (id, fileName) {
     return new Promise((resolve, reject) => {
         try {
-            let fileName = '/tmp/' + id + '.torrent';
             request({
                 url: urls.download + '/download.php?id=' + id,
                 followAllRedirects: true,
