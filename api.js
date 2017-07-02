@@ -88,7 +88,7 @@ KinozalTvApi.prototype.downloadTorrent = function (id, fileName) {
                 followAllRedirects: true,
                 jar: this.cookie,
                 agent: this.socksAgent
-            }).pipe(fs.createWriteStream(fileName)).on('close', resolve(fileName));
+            }).pipe(fs.createWriteStream(fileName)).on('finish', resolve(fileName));
         } catch (err) {
             reject(err)
         }
