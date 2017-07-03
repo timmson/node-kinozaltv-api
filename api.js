@@ -65,7 +65,7 @@ KinozalTvApi.prototype.search = function (parameters) {
                 resolve($('div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a').map((i,e) => {
                     return {
                         id: parseInt($(e).attr('href').split('=')[1]),
-                        url: $(e).attr('href'),
+                        url: urls.main + $(e).attr('href'),
                         title: $(e).html(),
                         size: $(e).parent().next().next().html(),
                         seeds: parseInt($(e).parent().next().next().next().html())
