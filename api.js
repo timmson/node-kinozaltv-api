@@ -1,4 +1,3 @@
-const fs = require('fs');
 const socks = require('socks');
 const request = require('request').defaults({jar: true});
 const cheerio = require('cheerio');
@@ -80,15 +79,15 @@ KinozalTvApi.prototype.search = function (parameters) {
 
  };*/
 
-KinozalTvApi.prototype.downloadTorrent = function (id, fileName) {
+KinozalTvApi.prototype.downloadTorrent = function (id) {
     return new Promise((resolve, reject) => {
         try {
-            request({
+            resolve(request({
                 url: urls.download + '/download.php?id=' + id,
                 followAllRedirects: true,
                 jar: this.cookie,
                 agent: this.socksAgent
-            }).pipe(fs.createWriteStream(fileName)).on('finish', resolve(fileName));
+            }));
         } catch (err) {
             reject(err)
         }
