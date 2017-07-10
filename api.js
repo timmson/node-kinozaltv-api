@@ -43,25 +43,47 @@ KinozalTvApi.prototype.authenticate = function () {
     });
 };
 
-
-KinozalTvApi.prototype.search = function (parameters) {
+KinozalTvApi.prototype.getTop = function () {
     return new Promise((resolve, reject) => {
-        let query = {t : 1};
-        Object.keys(parameters).filter(key => searchParameterMap.hasOwnProperty(key)).map(key => {
-            query[searchParameterMap[key]] = parameters[key]
-        });
+        let query = {w: 1};
         request({
-            url: urls.main + '/browse.php?' + qs.stringify(query),
+            url: urls.main + '/top.php?' + qs.stringify(query),
             encoding: 'binary',
             jar: this.cookie,
             agent: this.socksAgent
         }, (err, response, body) => {
-            if (response.statusCode !== 200) {
-                reject(new Error('error: ' + response.statusCode));
-            } else {
-                let $ = cheerio.load(conv.convert(new Buffer(body, 'binary'), {decodeEntities : true }).toString());
-                //console.log($('div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a').get());
-                resolve($('div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a').map((i,e) => {
+            if (err) {
+                reject(err)
+            }
+            let $ = cheerio.load(conv.convert(new Buffer(body, 'binary'), {decodeEntities: true}).toString());
+            resolve($('div#main div.content div.bx2 div.mn1_content div.bx1.stable a').map((i, e) => {
+                return {
+                    id: parseInt($(e).attr('href').split('=')[1]),
+                    url: urls.main + $(e).attr('href'),
+                    title: $(e).attr('title')
+                }
+            }).get());
+        });
+    });
+};
+
+KinozalTvApi.prototype.search = function (parameters) {
+    return new Promise((resolve, reject) => {
+            let query = {t: 1};
+            Object.keys(parameters).filter(key => searchParameterMap.hasOwnProperty(key)).map(key => {
+                query[searchParameterMap[key]] = parameters[key]
+            });
+            request({
+                url: urls.main + '/browse.php?' + qs.stringify(query),
+                encoding: 'binary',
+                jar: this.cookie,
+                agent: this.socksAgent
+            }, (err, response, body) => {
+                if (err) {
+                    reject(err);
+                }
+                let $ = cheerio.load(conv.convert(new Buffer(body, 'binary'), {decodeEntities: true}).toString());
+                resolve($('div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a').map((i, e) => {
                     return {
                         id: parseInt($(e).attr('href').split('=')[1]),
                         url: urls.main + $(e).attr('href'),
@@ -70,9 +92,9 @@ KinozalTvApi.prototype.search = function (parameters) {
                         seeds: parseInt($(e).parent().next().next().next().html())
                     }
                 }).get());
-            }
-        })
-    })
+            })
+        }
+    )
 };
 
 /*KinozalTvApi.prototype.getDetail = function(id) {
