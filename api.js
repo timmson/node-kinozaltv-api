@@ -95,7 +95,7 @@ KinozalTvApi.prototype.search = function (parameters) {
     )
 };
 
-KinozalTvApi.prototype.getDetail = (id) => {
+KinozalTvApi.prototype.getDetail = function(id)  {
     return new Promise((resolve, reject) => {
         let query = {id: id};
         request({
