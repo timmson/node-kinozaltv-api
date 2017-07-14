@@ -112,8 +112,8 @@ KinozalTvApi.prototype.getDetail = function(id)  {
                 let div = $("html body div#main div.content div.mn_wrap");
                 let detail = {
                     id: id,
-                    url: $(div).find("div h1 a.r1").attr("href"),
-                    title: $(div).find("div h1 a.r1").html(),
+                    url: $(div).find("div h1 a").attr("href"),
+                    title: $(div).find("div h1 a").html(),
                     img: $(div).find("div.mn1_menu ul.men.w200 li.img a img.p200").attr("src"),
                     description: $(div).find("div.mn_wrap div.mn1_content div.bx1.justify p").html(),
                     specs: $(div).find("div.mn1_content div.bx1 div#tabs.justify.mn2.pad5x5").html()
