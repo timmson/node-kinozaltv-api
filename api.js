@@ -22,10 +22,9 @@ function KinozalTvApi(_username, _password, _socksProxy) {
 }
 
 KinozalTvApi.prototype.authenticate = function () {
-    let data = qs.stringify({username: this,username, password: this.password, returnto : ""});
+    let data = qs.stringify({username: this.username, password: this.password, returnto : ""});
     return new Promise((resolve, reject) => {
-        request(
-            {
+        request(            {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Content-Length": data.length
