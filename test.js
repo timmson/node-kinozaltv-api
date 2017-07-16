@@ -1,4 +1,4 @@
-const KinozalTvApi = require('./api.js');
+const KinozalTV = require('./api.js');
 const fs = require('fs');
 
 const username = 'username';
@@ -9,20 +9,9 @@ const socksProxy = {
     type: 5
 };
 
+let kinozalTV = new KinozalTV(username, password, socksProxy);
 
-let kinozalTvApi = new KinozalTvApi(username, password, socksProxy);
-kinozalTvApi.authenticate().then(
-    res => kinozalTvApi.search({
-        title: 'The Big Bang 1080p',
-        year: '2017'
-    }).then(res => {
-            console.log(res[0]);
-            let fileName = '/tmp/' + res[0].id + '.torrent';
-            kinozalTvApi.downloadTorrent(res[0].id).then(
-                res => res.pipe(fs.createWriteStream(fileName)).on('finish', resolve(fileName)),
-                    err => console.error(err)
-            );
-        }
-    ),
-    err => console.error(err)
-);
+kinozalTV.getDetail(1526686).then(console.log, console.error);
+
+
+
