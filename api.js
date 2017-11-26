@@ -13,6 +13,18 @@ const searchParameterMap = {
     year: "d"
 };
 
+const genreMap = {
+    comedy: 101,
+    fantasy: 102,
+    horror: 103,
+    action: 104,
+    thriller: 105,
+    drama: 106,
+    russian: 107,
+    kids: 108
+
+};
+
 const conv = new require("iconv").Iconv("windows-1251", "utf8");
 
 function KinozalTvApi(_username, _password, _socksProxy) {
@@ -41,9 +53,12 @@ KinozalTvApi.prototype.authenticate = function () {
     });
 };
 
-KinozalTvApi.prototype.getTop = function () {
+KinozalTvApi.prototype.getTop = function (genre) {
     return new Promise((resolve, reject) => {
-        let query = {w: 1};
+        let query = {w: 1, d: 11};
+        if (genre && genreMap.hasOwnProperty(genre)) {
+            query.t = genreMap.hasOwnProperty(genre);
+        }
         request({
             url: urls.main + "/top.php?" + qs.stringify(query),
             encoding: "binary",
