@@ -34,9 +34,9 @@ function KinozalTvApi(_username, _password, _socksProxy) {
 }
 
 KinozalTvApi.prototype.authenticate = function () {
-    let data = qs.stringify({username: this.username, password: this.password, returnto : ""});
+    let data = qs.stringify({username: this.username, password: this.password, returnto: ""});
     return new Promise((resolve, reject) => {
-        request(            {
+        request({
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Content-Length": data.length
@@ -110,7 +110,7 @@ KinozalTvApi.prototype.search = function (parameters) {
     )
 };
 
-KinozalTvApi.prototype.getDetail = function(id)  {
+KinozalTvApi.prototype.getDetail = function (id) {
     return new Promise((resolve, reject) => {
         let query = {id: id};
         request({
@@ -126,7 +126,7 @@ KinozalTvApi.prototype.getDetail = function(id)  {
                 let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
                 let div = $("html body div#main div.content div.mn_wrap");
                 $(div).find("div.mn_wrap div.mn1_content div.bx1.justify h2 img.cat_img_r").remove();
-                 let detail = {
+                let detail = {
                     id: id,
                     url: $(div).find("div h1 a").attr("href"),
                     title: $(div).find("div h1 a").html(),
@@ -141,18 +141,12 @@ KinozalTvApi.prototype.getDetail = function(id)  {
     });
 };
 
-KinozalTvApi.prototype.downloadTorrent = (id) => {
-    return new Promise((resolve, reject) => {
-        try {
-            resolve(request({
-                url: urls.download + "/download.php?id=" + id,
-                followAllRedirects: true,
-                jar: this.cookie,
-                agent: this.socksAgent
-            }));
-        } catch (err) {
-            reject(err)
-        }
+KinozalTvApi.prototype.getDownloadStream = function (id) {
+    return request({
+        url: urls.download + "/download.php?" + qs.stringify({id: id}),
+        followAllRedirects: true,
+        jar: this.cookie,
+        agent: this.socksAgent
     });
 };
 
