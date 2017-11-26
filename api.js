@@ -55,7 +55,7 @@ KinozalTvApi.prototype.authenticate = function () {
 
 KinozalTvApi.prototype.getTop = function (genre) {
     return new Promise((resolve, reject) => {
-        let query = {w: 1, d: 11};
+        let query = {w: 2, d: 11};
         genreMap.hasOwnProperty(genre) ? query.t = genreMap[genre] : null;
         request({
             url: urls.main + "/top.php?" + qs.stringify(query),
