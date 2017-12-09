@@ -1,7 +1,7 @@
 /*const KinozalTV = require('./api.js').KinozalTv;
 
-const username = 'timmson';
-const password = 'CxfYA4';
+const username = 'test';
+const password = 'password';
 const socksProxy = {
     ipaddress: 'localhost',
     port: 9050,
@@ -14,8 +14,8 @@ kinozalTV.getDetail(1526686).then(console.log, console.error);*/
 
 const RutrackerOrg = require('./api.js').RutrackerOrg;
 
-const username = 'timmson666';
-const password = 'CxfYA4';
+const username = 'test';
+const password = 'password';
 const socksProxy = {
     ipaddress: 'localhost',
     port: 9050,
