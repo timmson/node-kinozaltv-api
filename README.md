@@ -1,48 +1,72 @@
-# API for kinozal.tv
+# API for torrent-trackers
+(former [node-kinozaltv-api](https://www.npmjs.com/package/node-kinozaltv-api))
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ff05731cbb6d42d588ef59dc90d42048)](https://www.codacy.com/app/timmson666/node-kinozaltv-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=timmson/node-kinozaltv-api&amp;utm_campaign=Badge_Grade)
-
-## Install
+## Installation
 
 ```bash
-npm i node-kinozaltv-api
+npm i node-t-tracker
 ```
+Install "Tor" if needed
 
-## Quick example
+## Quick example 
+
+### RutrackerOrg
+(inspired by [Rutracker API для Node.js](https://github.com/nikityy/Rutracker-API))
 ```javascript
-const KinozalTvApi = require('node-kinozaltv-api');
+const RuTrackerOrg = require("node-t-tracker").RuTrackerOrg;
 
-const username = 'username';
-const password = 'password';
+const username = "your_username";
+const password = "your_password";
 
 //use for Tor connection
 const socksProxy = {
-    ipaddress: 'localhost',
+    ipaddress: "localhost",
     port: 9050,
     type: 5
 };
 
 
-let kinozalTvApi = new KinozalTvApi(username, password, socksProxy);
-kinozalTvApi.authenticate().then(
-    res => kinozalTvApi.search({
-        title: 'The Big Bang 1080p',
-        year: '2017'
-    }).then(console.log),
-    err => console.error(err)
+
+let ruTrackerOrg = new RuTrackerOrg(username, password, socksProxy);
+RuTrackerOrg.authenticate().then(
+    res => ruTrackerOrg.search({title: "The Big Bang 1080p"}).then(console.log, console.error)
 );
 ```
 
-## Methods
+### KinozalTV
+```javascript
+const KinozalTv = require("node-t-tracker").KinozalTv;
+
+const username = "your_username";
+const password = "your_password";
+
+//use for Tor connection
+const socksProxy = {
+    ipaddress: "localhost",
+    port: 9050,
+    type: 5
+};
 
 
-### Authenticate
+let kinozalTv = new KinozalTv(username, password, socksProxy);
+kinozalTv.authenticate().then(
+    res => kinozalTv.search({
+        title: "The Big Bang 1080p",
+        year: "2017"
+    }).then(console.log, console.error)
+);
+```
+
+#### Methods
+
+
+#### Authenticate
 ...
 
 
-### Search
+#### Search
 ...
 
 
-### Download
+#### Download
 ...

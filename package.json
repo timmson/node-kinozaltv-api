@@ -1,26 +1,29 @@
 {
-  "name": "node-kinozaltv-api",
+  "name": "node-t-tracker",
   "version": "0.3.8",
-  "description": "API for kinozal.tv",
+  "description": "API for torrent-trackers",
   "main": "api.js",
   "scripts": {
     "test": "test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timmson/node-kinozaltv-api.git"
+    "url": "git+https://github.com/timmson/node-t-tracker.git"
   },
   "keywords": [
     "api",
     "torrent",
-    "kinozal.tv"
+    "kinozal",
+    "kinozal.tv",
+    "rutracker",
+    "rutracker.org"
   ],
   "author": "timmson",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/timmson/node-kinozaltv-api/issues"
+    "url": "https://github.com/timmson/node-t-tracker/issues"
   },
-  "homepage": "https://github.com/timmson/node-kinozaltv-api#readme",
+  "homepage": "https://github.com/timmson/node-t-tracker#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.1",
     "iconv": "^2.3.0",
