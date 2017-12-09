@@ -9,13 +9,13 @@ const urls = {
     download: "http://dl.kinozal.tv"
 };
 
-function RutrackerOrg(_username, _password, _socksProxy) {
+function RuTrackerOrg(_username, _password, _socksProxy) {
     this.username = _username;
     this.password = _password;
     this.socksAgent = _socksProxy ? new socks.Agent({proxy: _socksProxy}, true, false) : null;
 }
 
-RutrackerOrg.prototype.authenticate = function () {
+RuTrackerOrg.prototype.authenticate = function () {
     let data = qs.stringify({
         login_username: this.username, login_password: this.password, login: "Вход"
     });
@@ -44,7 +44,7 @@ RutrackerOrg.prototype.authenticate = function () {
     });
 };
 
-RutrackerOrg.prototype.search = function (parameters) {
+RuTrackerOrg.prototype.search = function (parameters) {
     let data = qs.stringify({o: 10, s: 2, prev_new: 0, prev_oop: 0, f: -1, pn: "", nm: parameters.title});
     return new Promise((resolve, reject) => {
         request({
@@ -79,7 +79,7 @@ RutrackerOrg.prototype.search = function (parameters) {
     });
 };
 
-RutrackerOrg.prototype.getDownloadStream = function (id) {
+RuTrackerOrg.prototype.getDownloadStream = function (id) {
     return request({
         url: urls.download + "forum/dl.php?" + qs.stringify({t: id}),
         followAllRedirects: true,
@@ -118,4 +118,4 @@ function bytesToSize(bytes) {
     return (bytes / Math.pow(1024, i)).toFixed(1) + " " + sizes[i];
 }
 
-module.exports = RutrackerOrg;
+module.exports = RuTrackerOrg;

@@ -26,13 +26,13 @@ const genreMap = {
 
 };
 
-function KinozalTvApi(_username, _password, _socksProxy) {
+function KinozalTv(_username, _password, _socksProxy) {
     this.username = _username;
     this.password = _password;
     this.socksAgent = _socksProxy ? new socks.Agent({proxy: _socksProxy}, false, false) : null;
 }
 
-KinozalTvApi.prototype.authenticate = function () {
+KinozalTv.prototype.authenticate = function () {
     let data = qs.stringify({username: this.username, password: this.password, returnto: ""});
     return new Promise((resolve, reject) => {
         request({
@@ -51,7 +51,7 @@ KinozalTvApi.prototype.authenticate = function () {
     });
 };
 
-KinozalTvApi.prototype.getTop = function (genre) {
+KinozalTv.prototype.getTop = function (genre) {
     return new Promise((resolve, reject) => {
         let query = {w: 2, d: 11};
         genreMap.hasOwnProperty(genre) ? query.t = genreMap[genre] : null;
@@ -75,7 +75,7 @@ KinozalTvApi.prototype.getTop = function (genre) {
     });
 };
 
-KinozalTvApi.prototype.search = function (parameters) {
+KinozalTv.prototype.search = function (parameters) {
     return new Promise((resolve, reject) => {
             let query = {t: 1};
             Object.keys(parameters).filter(key => searchParameterMap.hasOwnProperty(key)).map(key => {
@@ -105,7 +105,7 @@ KinozalTvApi.prototype.search = function (parameters) {
     )
 };
 
-KinozalTvApi.prototype.getDetail = function (id) {
+KinozalTv.prototype.getDetail = function (id) {
     return new Promise((resolve, reject) => {
         let query = {id: id};
         request({
@@ -135,7 +135,7 @@ KinozalTvApi.prototype.getDetail = function (id) {
     });
 };
 
-KinozalTvApi.prototype.getDownloadStream = function (id) {
+KinozalTv.prototype.getDownloadStream = function (id) {
     return request({
         url: urls.download + "/download.php?" + qs.stringify({id: id}),
         followAllRedirects: true,
@@ -168,4 +168,4 @@ cheerio.prototype.html = function wrapped_html() {
     return result
 };
 
-module.exports = KinozalTvApi;
+module.exports = KinozalTv;
