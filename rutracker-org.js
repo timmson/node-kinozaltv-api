@@ -5,8 +5,7 @@ const qs = require("querystring");
 const conv = new require("iconv").Iconv("windows-1251", "utf8");
 
 const urls = {
-    main: "https://rutracker.org",
-    download: "http://dl.kinozal.tv"
+    main: "https://rutracker.org"
 };
 
 function RuTrackerOrg(_username, _password, _socksProxy) {
@@ -81,7 +80,7 @@ RuTrackerOrg.prototype.search = function (parameters) {
 
 RuTrackerOrg.prototype.getDownloadStream = function (id) {
     return request({
-        url: urls.download + "forum/dl.php?" + qs.stringify({t: id}),
+        url: urls.main + "/forum/dl.php?" + qs.stringify({t: id}),
         followAllRedirects: true,
         agent: this.socksAgent
     });
