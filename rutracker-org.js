@@ -98,7 +98,10 @@ RuTrackerOrg.prototype.getDetail = function (id) {
                     id: id,
                     url: "?",
                     title: $("html head title").html(),
-                    img: $(div).find("var.postImg").attr("title")
+                    img: $(div).find("var.postImg").attr("title"),
+                    description: "",
+                    about: "",
+                    specs: ""
                 };
                 resolve(detail);
             }
