@@ -12,7 +12,7 @@ let kinozalTV = new KinozalTV(username, password, socksProxy);
 
 kinozalTV.getDetail(1526686).then(console.log, console.error);*/
 
-const RutrackerOrg = require('./api.js').RutrackerOrg;
+const RuTrackerOrg = require('./api.js').RuTrackerOrg;
 
 const username = 'test';
 const password = 'password';
@@ -22,9 +22,9 @@ const socksProxy = {
     type: 5
 };
 
-let rutrackerOrg = new RutrackerOrg(username, password, socksProxy);
-rutrackerOrg.authenticate().then(
-    () => rutrackerOrg.search({title: "test"}).then(console.log, console.error)
+let ruTrackerOrg = new RuTrackerOrg(username, password, socksProxy);
+ruTrackerOrg.authenticate().then(
+    () => ruTrackerOrg.getDetail(5471813).then(console.log, console.error)
 ).catch(console.error);
 
 

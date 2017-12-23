@@ -78,6 +78,34 @@ RuTrackerOrg.prototype.search = function (parameters) {
     });
 };
 
+RuTrackerOrg.prototype.getDetail = function (id) {
+    return new Promise((resolve, reject) => {
+        request({
+            url: urls.main + "/forum/viewtopic.php?" + qs.stringify({t: id}),
+            encoding: "binary",
+            followAllRedirects: true,
+            agent: this.socksAgent
+        }, (err, response, body) => {
+            if (err) {
+                reject(err);
+            } else {
+                //console.log(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
+                let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
+                let div1 = $("table#topic_main tbody[id^=post]").first();
+                let div = $(div1).find("td.message div.post_body");
+                //console.log($(div1).html());
+                let detail = {
+                    id: id,
+                    url: "?",
+                    title: $("html head title").html(),
+                    img: $(div).find("var.postImg").attr("title")
+                };
+                resolve(detail);
+            }
+        });
+    });
+}
+
 RuTrackerOrg.prototype.getDownloadStream = function (id) {
     return request({
         url: urls.main + "/forum/dl.php?" + qs.stringify({t: id}),
