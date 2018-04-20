@@ -1,4 +1,3 @@
-const socks = require("socks");
 const request = require("request").defaults({jar: true});
 const cheerio = require("cheerio");
 const qs = require("querystring");
@@ -8,10 +7,10 @@ const urls = {
     main: "https://rutracker.org"
 };
 
-function RuTrackerOrg(_username, _password, _socksProxy) {
+function RuTrackerOrg(_username, _password, _proxy) {
     this.username = _username;
     this.password = _password;
-    this.socksAgent = _socksProxy ? new socks.Agent({proxy: _socksProxy}, true, false) : null;
+    this.proxy = _proxy
 }
 
 RuTrackerOrg.prototype.authenticate = function () {
@@ -29,7 +28,7 @@ RuTrackerOrg.prototype.authenticate = function () {
                 encoding: "binary",
                 body: data,
                 followAllRedirects: true,
-                agent: this.socksAgent
+                proxy: this.proxy
             }, (err, response, body) => {
                 if (err || response.statusCode !== 200) {
                     //console.log(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
@@ -55,7 +54,7 @@ RuTrackerOrg.prototype.search = function (parameters) {
             encoding: "binary",
             body: data,
             followAllRedirects: true,
-            agent: this.socksAgent
+            proxy: this.proxy
         }, (err, response, body) => {
             if (err || response.statusCode !== 200) {
                 //console.log(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
@@ -84,7 +83,7 @@ RuTrackerOrg.prototype.getDetail = function (id) {
             url: urls.main + "/forum/viewtopic.php?" + qs.stringify({t: id}),
             encoding: "binary",
             followAllRedirects: true,
-            agent: this.socksAgent
+            proxy: this.proxy
         }, (err, response, body) => {
             if (err) {
                 reject(err);
@@ -113,7 +112,7 @@ RuTrackerOrg.prototype.getDownloadStream = function (id) {
     return request({
         url: urls.main + "/forum/dl.php?" + qs.stringify({t: id}),
         followAllRedirects: true,
-        agent: this.socksAgent
+        proxy: this.proxy
     });
 };
 

@@ -1,4 +1,3 @@
-const socks = require("socks");
 const request = require("request").defaults({jar: true});
 const cheerio = require("cheerio");
 const qs = require("querystring");
@@ -26,10 +25,10 @@ const genreMap = {
 
 };
 
-function KinozalTv(_username, _password, _socksProxy) {
+function KinozalTv(_username, _password, _proxy) {
     this.username = _username;
     this.password = _password;
-    this.socksAgent = _socksProxy ? new socks.Agent({proxy: _socksProxy}, false, false) : null;
+    this.proxy = _proxy;
 }
 
 KinozalTv.prototype.authenticate = function () {
@@ -45,7 +44,7 @@ KinozalTv.prototype.authenticate = function () {
                 encoding: "binary",
                 body: data,
                 followAllRedirects: true,
-                agent: this.socksAgent
+                proxy: this.proxy
             }, (err, response, body) => err || response.statusCode !== 200 ? reject(err || "error: " + (response || response.statusCode)) : resolve(null)
         )
     });
@@ -58,7 +57,7 @@ KinozalTv.prototype.getTop = function (genre) {
         request({
             url: urls.main + "/top.php?" + qs.stringify(query),
             encoding: "binary",
-            agent: this.socksAgent
+            proxy: this.proxy
         }, (err, response, body) => {
             if (err) {
                 reject(err)
@@ -84,7 +83,7 @@ KinozalTv.prototype.search = function (parameters) {
             request({
                 url: urls.main + "/browse.php?" + qs.stringify(query),
                 encoding: "binary",
-                agent: this.socksAgent
+                proxy: this.proxy
             }, (err, response, body) => {
                 if (err) {
                     reject(err);
@@ -111,7 +110,7 @@ KinozalTv.prototype.getDetail = function (id) {
         request({
             url: urls.main + "/details.php?" + qs.stringify(query),
             encoding: "binary",
-            agent: this.socksAgent
+            proxy: this.proxy
         }, (err, response, body) => {
             if (err) {
                 reject(err);
@@ -139,7 +138,7 @@ KinozalTv.prototype.getDownloadStream = function (id) {
     return request({
         url: urls.download + "/download.php?" + qs.stringify({id: id}),
         followAllRedirects: true,
-        agent: this.socksAgent
+        proxy: this.proxy
     });
 };
 
