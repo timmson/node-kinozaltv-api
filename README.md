@@ -3,7 +3,7 @@
 
 [![status](https://api.travis-ci.org/timmson/node-t-tracker.svg?branch=master)](https://travis-ci.org/timmson/node-t-tracker)
 [![codecov](https://codecov.io/gh/timmson/node-t-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/timmson/node-t-tracker)
-[![codacy](https://api.codacy.com/project/badge/Grade/facf6e93560d4fd8928723f53752decb)](https://www.codacy.com/app/timmson666/node-t-tracker)
+[![codacy](https://api.codacy.com/project/badge/Grade/137a008b9b904f9a95a3c1461d2ea6bf)](https://www.codacy.com/app/timmson666/node-t-tracker)
 [![version](https://img.shields.io/npm/v/node-t-tracker.svg)](https://www.npmjs.com/package/node-t-tracker)
 [![license](https://img.shields.io/npm/l/node-t-tracker.svg)](https://www.npmjs.com/package/node-t-tracker)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Ftimmson%2Fnode-t-tracker.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Ftimmson%2Fnode-t-tracker?ref=badge_shield)
