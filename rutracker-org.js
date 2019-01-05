@@ -1,13 +1,14 @@
 const bytes = require("bytes");
 const cheerio = require("cheerio");
 const qs = require("querystring");
-const conv = new require("iconv").Iconv("windows-1251", "utf8");
+const iconv = require("iconv");
+const conv = new iconv.Iconv("windows-1251", "utf8");
 
 const urls = {
     main: "https://rutracker.org"
 };
 
-let that = undefined;
+let that = null;
 
 function RuTrackerOrg(_username, _password, _proxy, _request) {
     that.username = _username;

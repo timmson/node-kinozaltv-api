@@ -62,17 +62,13 @@ kinozalTv.authenticate().then(
     }).then(console.log, console.error)
 );
 ```
-
 #### Methods
-
 
 #### Authenticate
 ...
 
-
 #### Search
 ...
-
 
 #### Download
 ...
