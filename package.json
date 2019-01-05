@@ -1,10 +1,11 @@
 {
   "name": "node-t-tracker",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "description": "API for torrent-trackers",
-  "main": "api.js",
+  "main": "index.js",
   "scripts": {
-    "test": "test.js"
+    "test": "mocha",
+    "coverage": "nyc mocha && nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {
     "type": "git",
@@ -19,15 +20,17 @@
     "rutracker.org"
   ],
   "author": "timmson",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/timmson/node-t-tracker/issues"
   },
   "homepage": "https://github.com/timmson/node-t-tracker#readme",
   "dependencies": {
+    "bytes": "3.0.0",
     "cheerio": "^1.0.0-rc.1",
-    "iconv": "^2.3.0",
-    "install": "^0.10.1",
-    "request": "^2.81.0"
+    "iconv": "^2.3.0"
+  },
+  "devDependencies": {
+    "chai": "4.2.0"
   }
 }

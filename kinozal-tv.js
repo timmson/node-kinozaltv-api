@@ -1,4 +1,3 @@
-const request = require("request").defaults({jar: true});
 const cheerio = require("cheerio");
 const qs = require("querystring");
 const conv = new require("iconv").Iconv("windows-1251", "utf8");
@@ -25,16 +24,20 @@ const genreMap = {
 
 };
 
-function KinozalTv(_username, _password, _proxy) {
-    this.username = _username;
-    this.password = _password;
-    this.proxy = _proxy;
+let that = undefined;
+
+function KinozalTv(_username, _password, _proxy, _request) {
+    that = this;
+    that.username = _username;
+    that.password = _password;
+    that.proxy = _proxy;
+    that.request = _request.defaults({jar: true});
 }
 
 KinozalTv.prototype.authenticate = function () {
-    let data = qs.stringify({username: this.username, password: this.password, returnto: ""});
+    let data = qs.stringify({username: that.username, password: that.password, returnto: ""});
     return new Promise((resolve, reject) => {
-        request({
+        that.request({
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "Content-Length": data.length
@@ -44,7 +47,7 @@ KinozalTv.prototype.authenticate = function () {
                 encoding: "binary",
                 body: data,
                 followAllRedirects: true,
-                proxy: this.proxy
+                proxy: that.proxy
             }, (err, response, body) => err || response.statusCode !== 200 ? reject(err || "error: " + (response || response.statusCode)) : resolve(null)
         )
     });
@@ -54,10 +57,10 @@ KinozalTv.prototype.getTop = function (genre) {
     return new Promise((resolve, reject) => {
         let query = {w: 2, d: 11};
         genreMap.hasOwnProperty(genre) ? query.t = genreMap[genre] : null;
-        request({
+        that.request({
             url: urls.main + "/top.php?" + qs.stringify(query),
             encoding: "binary",
-            proxy: this.proxy
+            proxy: that.proxy
         }, (err, response, body) => {
             if (err) {
                 reject(err)
@@ -80,10 +83,10 @@ KinozalTv.prototype.search = function (parameters) {
             Object.keys(parameters).filter(key => searchParameterMap.hasOwnProperty(key)).map(key => {
                 query[searchParameterMap[key]] = parameters[key]
             });
-            request({
+            that.request({
                 url: urls.main + "/browse.php?" + qs.stringify(query),
                 encoding: "binary",
-                proxy: this.proxy
+                proxy: that.proxy
             }, (err, response, body) => {
                 if (err) {
                     reject(err);
@@ -107,10 +110,10 @@ KinozalTv.prototype.search = function (parameters) {
 KinozalTv.prototype.getDetail = function (id) {
     return new Promise((resolve, reject) => {
         let query = {id: id};
-        request({
+        that.request({
             url: urls.main + "/details.php?" + qs.stringify(query),
             encoding: "binary",
-            proxy: this.proxy
+            proxy: that.proxy
         }, (err, response, body) => {
             if (err) {
                 reject(err);
@@ -135,10 +138,10 @@ KinozalTv.prototype.getDetail = function (id) {
 };
 
 KinozalTv.prototype.getDownloadStream = function (id) {
-    return request({
+    return that.request({
         url: urls.download + "/download.php?" + qs.stringify({id: id}),
         followAllRedirects: true,
-        proxy: this.proxy
+        proxy: that.proxy
     });
 };
 
