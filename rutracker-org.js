@@ -134,9 +134,11 @@ cheerio.prototype.html = function wrapped_html() {
 
             // don"t unescape ascii characters, assuming that all ascii characters
             // are encoded for a good reason
-            if (code < 0x80) return entity;
+            if (code < 0x80) {
+                return entity;
+            }
 
-            return String.fromCodePoint(code)
+            return String.fromCodePoint(code);
         })
     }
 
