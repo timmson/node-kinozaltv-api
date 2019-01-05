@@ -1,21 +1,21 @@
 const fs = require("fs");
 const expect = require("chai").expect;
-const KinozalTV = require('../index.js').KinozalTv;
+const KinozalTV = require("../index.js").KinozalTv;
 
-const username = 'test';
-const password = 'password';
-const proxy = 'http://192.168.0.2:3128';
+const username = "test";
+const password = "password";
+const proxy = "http://192.168.0.2:3128";
 
 
 function request(uri, options, callback) {
     let response = {statusCode: 404};
     let body = "";
-    if (typeof options === 'function') {
+    if (typeof options === "function") {
         callback = options;
         options = uri;
-        let script = options.url.split("/").pop().split("?")[0];
-        body = fs.readFileSync("./test/response/" + "kinozal-tv" + "/" + script);
-        response.statusCode = 200
+        let script = "./test/response/" + "kinozal-tv" + "/" + options.url.split("/").pop().split("?")[0];
+        body = fs.readFileSync(script);
+        response.statusCode = 200;
     }
 
     if (callback) {
@@ -24,7 +24,7 @@ function request(uri, options, callback) {
 }
 
 request.defaults = function (options, requester) {
-    return request
+    return request;
 };
 
 describe("KinozalTV", () => {

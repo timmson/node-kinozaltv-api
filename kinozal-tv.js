@@ -39,18 +39,22 @@ KinozalTv.prototype.authenticate = function () {
     let data = qs.stringify({username: that.username, password: that.password, returnto: ""});
     return new Promise((resolve, reject) => {
         that.request({
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "Content-Length": data.length
-                },
-                url: urls.main + "/takelogin.php",
-                method: "POST",
-                encoding: "binary",
-                body: data,
-                followAllRedirects: true,
-                proxy: that.proxy
-            }, (err, response, body) => err || response.statusCode !== 200 ? reject(err || "error: " + (response || response.statusCode)) : resolve(null)
-        )
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "Content-Length": data.length
+            },
+            url: urls.main + "/takelogin.php",
+            method: "POST",
+            encoding: "binary",
+            body: data,
+            followAllRedirects: true,
+            proxy: that.proxy
+        }, (err, response, body) => {
+            if (err || response.statusCode !== 200) {
+                reject(err || "error: " + (response || response.statusCode));
+            }
+            resolve(null);
+        })
     });
 };
 
@@ -71,7 +75,7 @@ KinozalTv.prototype.getTop = function (genre) {
             let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
             resolve($("div#main div.content div.bx2 div.mn1_content div.bx1.stable a").map((i, e) => {
                 return {
-                    id: parseInt($(e).attr("href").split("=")[1]),
+                    id: parseInt($(e).attr("href").split("=")[1], 10),
                     url: urls.main + $(e).attr("href"),
                     title: $(e).attr("title")
                 }
@@ -97,11 +101,11 @@ KinozalTv.prototype.search = function (parameters) {
                     let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
                     resolve($("div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a").map((i, e) => {
                         return new Object({
-                            id: parseInt($(e).attr("href").split("=")[1]),
+                            id: parseInt($(e).attr("href").split("=")[1], 10),
                             url: urls.main + $(e).attr("href"),
                             title: $(e).html(),
                             size: $(e).parent().next().next().html(),
-                            seeds: parseInt($(e).parent().next().next().next().html())
+                            seeds: parseInt($(e).parent().next().next().next().html(), 10)
                         });
                     }).get());
                 }
@@ -159,17 +163,13 @@ cheerio.prototype.html = function wrapped_html() {
     let result = cheerio_html.apply(this, arguments);
 
     if (typeof result === "string") {
-        result = result.replace(/&#x([0-9a-f]{1,6});/ig, function (entity, code) {
+        result = result.replace(/&#x([0-9a-f]{1,6});/ig, (entity, code) => {
             code = parseInt(code, 16);
-
-            // don"t unescape ascii characters, assuming that all ascii characters
-            // are encoded for a good reason
             if (code < 0x80) {
                 return entity;
             }
-
             return String.fromCodePoint(code);
-        })
+        });
     }
 
     return result

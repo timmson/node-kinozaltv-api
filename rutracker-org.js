@@ -68,11 +68,11 @@ RuTrackerOrg.prototype.search = function (parameters) {
                 let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
                 resolve($("#tor-tbl > tbody tr.tCenter td.t-title div.t-title a").map((i, e) => {
                     return {
-                        id: parseInt($(e).attr("href").split("=")[1]),
+                        id: parseInt($(e).attr("href").split("=")[1], 10),
                         url: urls.main + "/forum/" + $(e).attr("href"),
                         title: $(e).html(),
-                        size: bytes(parseInt($(e).parent().parent().next().next().find("u").html())),
-                        seeds: parseInt($(e).parent().parent().next().next().next().find("u").html())
+                        size: bytes(parseInt($(e).parent().parent().next().next().find("u").html(), 10)),
+                        seeds: parseInt($(e).parent().parent().next().next().next().find("u").html(), 10)
                     };
                 }).get().sort((a, b) => a.seeds <= b.seeds));
 
@@ -130,17 +130,13 @@ cheerio.prototype.html = function wrapped_html() {
     let result = cheerio_html.apply(this, arguments);
 
     if (typeof result === "string") {
-        result = result.replace(/&#x([0-9a-f]{1,6});/ig, function (entity, code) {
+        result = result.replace(/&#x([0-9a-f]{1,6});/ig, (entity, code) => {
             code = parseInt(code, 16);
-
-            // don"t unescape ascii characters, assuming that all ascii characters
-            // are encoded for a good reason
             if (code < 0x80) {
                 return entity;
             }
-
             return String.fromCodePoint(code);
-        })
+        });
     }
 
     return result
