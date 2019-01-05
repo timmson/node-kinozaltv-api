@@ -56,14 +56,16 @@ KinozalTv.prototype.authenticate = function () {
 KinozalTv.prototype.getTop = function (genre) {
     return new Promise((resolve, reject) => {
         let query = {w: 2, d: 11};
-        genreMap.hasOwnProperty(genre) ? query.t = genreMap[genre] : null;
+        if (genreMap.hasOwnProperty(genre)) {
+            query.t = genreMap[genre];
+        }
         that.request({
             url: urls.main + "/top.php?" + qs.stringify(query),
             encoding: "binary",
             proxy: that.proxy
         }, (err, response, body) => {
             if (err) {
-                reject(err)
+                reject(err);
             }
             let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
             resolve($("div#main div.content div.bx2 div.mn1_content div.bx1.stable a").map((i, e) => {
@@ -93,23 +95,23 @@ KinozalTv.prototype.search = function (parameters) {
                 } else {
                     let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
                     resolve($("div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a").map((i, e) => {
-                        return {
+                        return new Object({
                             id: parseInt($(e).attr("href").split("=")[1]),
                             url: urls.main + $(e).attr("href"),
                             title: $(e).html(),
                             size: $(e).parent().next().next().html(),
                             seeds: parseInt($(e).parent().next().next().next().html())
-                        }
+                        });
                     }).get());
                 }
-            })
+            });
         }
     )
 };
 
 KinozalTv.prototype.getDetail = function (id) {
     return new Promise((resolve, reject) => {
-        let query = {id: id};
+        let query = {id};
         that.request({
             url: urls.main + "/details.php?" + qs.stringify(query),
             encoding: "binary",
@@ -123,7 +125,7 @@ KinozalTv.prototype.getDetail = function (id) {
                 let div = $("html body div#main div.content div.mn_wrap");
                 $(div).find("div.mn_wrap div.mn1_content div.bx1.justify h2 img.cat_img_r").remove();
                 let detail = {
-                    id: id,
+                    id,
                     url: $(div).find("div h1 a").attr("href"),
                     title: $(div).find("div h1 a").html(),
                     img: $(div).find("div.mn1_menu ul.men.w200 li.img a img.p200").attr("src"),
@@ -139,7 +141,7 @@ KinozalTv.prototype.getDetail = function (id) {
 
 KinozalTv.prototype.getDownloadStream = function (id) {
     return that.request({
-        url: urls.download + "/download.php?" + qs.stringify({id: id}),
+        url: urls.download + "/download.php?" + qs.stringify({id}),
         followAllRedirects: true,
         proxy: that.proxy
     });
@@ -161,9 +163,11 @@ cheerio.prototype.html = function wrapped_html() {
 
             // don"t unescape ascii characters, assuming that all ascii characters
             // are encoded for a good reason
-            if (code < 0x80) return entity;
+            if (code < 0x80) {
+                return entity;
+            }
 
-            return String.fromCodePoint(code)
+            return String.fromCodePoint(code);
         })
     }
 
