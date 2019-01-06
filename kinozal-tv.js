@@ -37,7 +37,7 @@ function KinozalTv(_username, _password, _proxy, _request) {
 
 KinozalTv.prototype.authenticate = function () {
     let data = qs.stringify({username: that.username, password: that.password, returnto: ""});
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) =>
         that.request({
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -55,7 +55,7 @@ KinozalTv.prototype.authenticate = function () {
             }
             resolve(null);
         })
-    });
+    );
 };
 
 KinozalTv.prototype.getTop = function (genre) {

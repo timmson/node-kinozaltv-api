@@ -22,7 +22,7 @@ RuTrackerOrg.prototype.authenticate = function () {
     let data = qs.stringify({
         login_username: that.username, login_password: that.password, login: "Вход"
     });
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) =>
         that.request({
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -44,7 +44,7 @@ RuTrackerOrg.prototype.authenticate = function () {
                 }
             }
         )
-    });
+    );
 };
 
 RuTrackerOrg.prototype.search = function (parameters) {

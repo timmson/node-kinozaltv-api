@@ -30,9 +30,9 @@ describe("RutrackerOrg", () => {
             })
         });*/
 
-        describe("#getDownloadStream", () => {
-            it("Detail should be returned", () => {
-                expect(ruTrackerOrg.getDownloadStream(1654888)).to.equal(1);
-            })
-        });
+    describe("#getDownloadStream", () => {
+        it("Detail should be returned", () => {
+            expect(ruTrackerOrg.getDownloadStream(1654888)).to.equal(1);
+        })
+    });
 });
