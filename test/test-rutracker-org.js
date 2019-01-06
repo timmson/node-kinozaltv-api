@@ -16,19 +16,18 @@ describe("RutrackerOrg", () => {
             expect(result).to.be.null;
         });
     });
-    /*
 
-        describe("#search", () => {
-            it("5 records should be returned", async () => {
-                expect(await ruTrackerOrg.search({})).to.have.lengthOf(5);
-            })
-        });
+    describe("#search", () => {
+        it("5 records should be returned", async () => {
+            expect(await ruTrackerOrg.search({title: "The best movie ever"})).to.have.lengthOf(5);
+        })
+    });
 
-        describe("#getDetail", () => {
-            it("Detail should be returned", async () => {
-                expect(await ruTrackerOrg.getDetail(1654888)).to.have.property("id").to.equal(1654888);
-            })
-        });*/
+    describe("#getDetail", () => {
+        it("Detail should be returned", async () => {
+            expect(await ruTrackerOrg.getDetail(1654888)).to.have.property("title").to.equal("The best movie ever");
+        })
+    });
 
     describe("#getDownloadStream", () => {
         it("Detail should be returned", () => {

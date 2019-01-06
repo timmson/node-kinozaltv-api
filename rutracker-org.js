@@ -99,7 +99,7 @@ RuTrackerOrg.prototype.getDetail = function (id) {
                 let div = $(div1).find("td.message div.post_body");
                 //console.log($(div1).html());
                 let detail = {
-                    id: id,
+                    id,
                     url: "?",
                     title: $("html head title").html(),
                     img: $(div).find("var.postImg").attr("title"),

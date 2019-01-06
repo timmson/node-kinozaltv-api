@@ -1,6 +1,6 @@
 {
   "name": "node-t-tracker",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "API for torrent-trackers",
   "main": "index.js",
   "scripts": {
