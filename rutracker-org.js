@@ -11,6 +11,7 @@ const urls = {
 let that = null;
 
 function RuTrackerOrg(_username, _password, _proxy, _request) {
+    that = this;
     that.username = _username;
     that.password = _password;
     that.proxy = _proxy;
@@ -110,7 +111,7 @@ RuTrackerOrg.prototype.getDetail = function (id) {
             }
         });
     });
-}
+};
 
 RuTrackerOrg.prototype.getDownloadStream = function (id) {
     return that.request({
@@ -139,7 +140,7 @@ cheerio.prototype.html = function wrapped_html() {
         });
     }
 
-    return result
+    return result;
 };
 
 module.exports = RuTrackerOrg;

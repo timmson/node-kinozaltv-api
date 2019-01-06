@@ -172,7 +172,7 @@ cheerio.prototype.html = function wrapped_html() {
         });
     }
 
-    return result
+    return result;
 };
 
 module.exports = KinozalTv;
