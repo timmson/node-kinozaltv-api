@@ -95,8 +95,8 @@ KinozalTv.prototype.search = function (parameters) {
                 encoding: "binary",
                 proxy: that.proxy
             }, (err, response, body) => {
-                if (err) {
-                    reject(err);
+                if (err || response.statusCode !== 200) {
+                    reject(err || "error: " + (response || response.statusCode));
                 } else {
                     let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
                     resolve($("div#main div.content div.bx2_0 table.t_peer.w100p tbody tr.bg td.nam a").map((i, e) => {
@@ -122,8 +122,8 @@ KinozalTv.prototype.getDetail = function (id) {
             encoding: "binary",
             proxy: that.proxy
         }, (err, response, body) => {
-            if (err) {
-                reject(err);
+            if (err || response.statusCode !== 200) {
+                reject(err || "error: " + (response || response.statusCode));
             } else {
                 //console.log(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
                 let $ = cheerio.load(conv.convert(new Buffer(body, "binary"), {decodeEntities: true}).toString());
