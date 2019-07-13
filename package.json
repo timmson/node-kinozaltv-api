@@ -1,6 +1,6 @@
 {
   "name": "node-t-tracker",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "API for torrent-trackers",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "homepage": "https://github.com/timmson/node-t-tracker#readme",
   "dependencies": {
     "bytes": "3.0.0",
-    "cheerio": "^1.0.0-rc.1",
+    "cheerio": "1.0.0-rc.3",
     "iconv": "^2.3.0"
   },
   "devDependencies": {
