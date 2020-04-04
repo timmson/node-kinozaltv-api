@@ -4,7 +4,8 @@
   "description": "API for torrent-trackers",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "lint": "npx eslint ./index.js ./test/test-kinozal-tv.js ./test/test-rutracker-org.js",
+    "test": "npx mocha",
     "coverage": "nyc mocha && nyc report --reporter=text-lcov > coverage.lcov"
   },
   "repository": {
@@ -28,10 +29,14 @@
   "dependencies": {
     "bytes": "3.0.0",
     "cheerio": "1.0.0-rc.3",
-    "iconv": "^2.3.0"
+    "iconv": "^2.3.0",
+    "nyc": "15.0.1"
   },
   "devDependencies": {
+    "@types/chai": "4.2.11",
+    "@types/mocha": "7.0.2",
     "chai": "4.2.0",
-    "mocha-isolation": "0.1.5"
+    "eslint": "6.8.0",
+    "mocha": "6.2.3"
   }
 }

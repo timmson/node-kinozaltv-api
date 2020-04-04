@@ -14,4 +14,4 @@ test
 .gitignore
 
 #Other
-.travis.yml
+.github
