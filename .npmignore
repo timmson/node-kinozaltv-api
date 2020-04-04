@@ -5,6 +5,7 @@
 node_modules/
 
 #Test & Coverage
+.eslintrc.js
 .nyc_output
 coverage.lcov
 test
